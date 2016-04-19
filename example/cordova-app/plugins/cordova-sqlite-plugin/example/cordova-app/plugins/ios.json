@@ -8,10 +8,13 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.kinda.SQLiteExample"
+            "PACKAGE_NAME": "org.objectlayer.example"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "org.objectlayer.example"
         },
         "cordova-sqlite-plugin": {
-            "PACKAGE_NAME": "io.kinda.SQLiteExample"
+            "PACKAGE_NAME": "org.objectlayer.example"
         }
     },
     "dependent_plugins": {}

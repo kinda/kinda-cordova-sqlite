@@ -10,19 +10,19 @@ let KindaCordovaSQLite = KindaObject.extend('KindaCordovaSQLite', function() {
     if (!options.name) throw new Error('Cordova SQLite database name is missing');
     this.awaitLock = new AwaitLock();
     document.addEventListener('deviceready', () => {
-      let sqlite = window.cordova.require('io.kinda.cordova-sqlite-plugin.sqlite');
-      let connection = sqlite.createConnection(options.name);
-      connection.connect(err => {
+      let SQLite = window.cordova.require('cordova-sqlite-plugin.SQLite');
+      let sqlite = new SQLite(options.name);
+      sqlite.open(err => {
         if (err) throw err;
-        this.connection = connection;
+        this.sqlite = sqlite;
       });
     }, false);
   };
 
   this.initialize = async function() {
-    if (this.connection) return;
+    if (this.sqlite) return;
     let timestamp = Date.now();
-    while (!this.connection) {
+    while (!this.sqlite) {
       await util.timeout(200);
       if (Date.now() - timestamp > 5000) {
         throw new Error('initialization of KindaCordovaSQLite failed (Cordova didn\'t start after 5 seconds)');
@@ -56,7 +56,7 @@ let KindaCordovaSQLite = KindaObject.extend('KindaCordovaSQLite', function() {
   this.__query = function(sql, values) {
     // console.log(sql, JSON.stringify(values));
     return new Promise((resolve, reject) => {
-      this.connection.query(sql, values, function(err, res) {
+      this.sqlite.query(sql, values, function(err, res) {
         if (err) reject(err); else resolve(res);
       });
     });
