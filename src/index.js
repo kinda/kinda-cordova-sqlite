@@ -93,8 +93,8 @@ let KindaCordovaSQLite = KindaObject.extend('KindaCordovaSQLite', function() {
     if (result.insertId != null) {
       normalizedResult.insertId = result.insertId;
     }
-    if (result.rowsAffected != null) {
-      normalizedResult.affectedRows = result.rowsAffected;
+    if (result.affectedRows != null) {
+      normalizedResult.affectedRows = result.affectedRows;
     }
     if (!result.rows) return normalizedResult;
     for (let row of result.rows) {
